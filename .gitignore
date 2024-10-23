@@ -1,0 +1,12 @@
+# Castor
+.castor.stub.php
+
+# Devenv
+.devenv*
+devenv.local.nix
+.direnv
+.pre-commit-config.yaml
+
+# Global
+*/vendor
+*/node_modules

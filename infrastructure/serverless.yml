@@ -1,0 +1,34 @@
+# https://github.com/serverless/serverless/blob/v3.39.0/docs/providers/aws/guide/serverless.yml.md
+
+functions:
+
+    web:
+        handler: App\Kernel
+        runtime: ${bref:layer.php-84}
+        timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
+        environment:
+            BREF_LOOP_MAX: 100
+        events:
+            -   httpApi: '*'
+
+    cli:
+        handler: bin/console
+        timeout: 120
+        layers:
+            - ${bref:layer.php-84}
+            - ${bref:layer.console}
+
+package:
+    patterns:
+        - '!node_modules/**'
+        - '!tests/**'
+
+
+plugins:
+    - ./vendor/bref/bref
+
+provider:
+    name: aws
+    region: eu-west-3
+
+service: mkrss
